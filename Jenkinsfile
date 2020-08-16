@@ -4,7 +4,7 @@ node {
         git branch: "master", url: "https://github.com/shreegowtham27/node-docker.git"
     }
     stage('Build image') {
-        app = sh "sudo docker build -t docker-node ."
+        app = sh "docker build -t docker-node ."
     }
     stage('tag image') {
         sh "docker tag docker-node:latest 228645407764.dkr.ecr.us-east-1.amazonaws.com/docker-node:latest"
