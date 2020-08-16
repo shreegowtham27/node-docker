@@ -1,11 +1,17 @@
 node {
-    checkout scm
-
-    docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
-        def customImage = docker.build("shreegowtham27/docker-node")
-        /* Push the container to the custom Registry */
-        customImage.push()
+    def app
+    stage('Clone repository') {
+        git branch: "master", url: "https://github.com/shreegowtham27/node-docker.git"
     }
-    
-    // Stage 3docker Hub to Ecs
+    stage('Build image') {
+        app = sh "sudo docker build -t docker-node ."
+    }
+    stage('tag image') {
+        sh "docker tag docker-node:latest 228645407764.dkr.ecr.us-east-1.amazonaws.com/docker-node:latest"
+    }
+    stage('Push image') {
+        docker.withRegistry('https://228645407764.dkr.ecr.us-west-2.amazonaws.com', 'ecr:us-west-2:aws-ecr') {
+            sh "docker push 228645407764.dkr.ecr.us-east-1.amazonaws.com/docker-node:latest"
+        }
+    }
 }
