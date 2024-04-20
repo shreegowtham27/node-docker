@@ -6,6 +6,9 @@ const express = require('express');
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
+
+AWS_SECRET_KEY_ID="AKIAIOSFODNN7EXAMPLE"
+
 // App
 const app = express();
 app.get('/', (req, res) => {
