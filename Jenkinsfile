@@ -1,5 +1,5 @@
-node {
-    def app
+pipeline {
+    agent any
     stage('Clone repository') {
         git branch: "master", url: "https://github.com/shreegowtham27/node-docker.git"
     }
